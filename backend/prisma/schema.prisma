@@ -1,0 +1,25 @@
+  generator client {
+    provider = "prisma-client-js"
+  }
+
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+  }
+ model User {
+  id                Int       @id @default(autoincrement())
+  organisationName  String
+  organisationSize  String
+  organisationType  String?   // ✅ NEW FIELD
+  representative    String
+  designation       String
+  companyEmail      String    @unique
+  password          String
+  mobile            String
+  isVerified        Boolean   @default(false)
+  verificationToken String?   @unique
+  resetToken        String?
+  accountStatus     String    @default("active")  // ✅ New column with default
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt          // ✅ Auto-updates on modification
+}
